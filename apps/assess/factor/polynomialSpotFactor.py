@@ -19,19 +19,16 @@ class PolynomialSpotFactor(Factor):
     
     def evaluate(self, vec2: Vec) -> Score:
         score = Score(self.title)
-        total = 0
         for spot in self.eachSpotList:
             deltaX = abs(spot.vec2.x-vec2.x)
             deltaY = abs(spot.vec2.y-vec2.y)
             length = deltaX + deltaY
-            point = self.grad*(length**self.n)
+            if 1 >= length > 0:
+                point = 1 - length
+            else:
+                point = 0
             reason = Reason(spot.name, point)
-            total += point
             score.addReason(reason)
-        total *= 1.01
-
-        for reason in score.reasons:
-            reason.point = reason.point/total
 
         return score
 

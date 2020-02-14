@@ -2,6 +2,9 @@ from .factor import Vec, Score, Factor
 from typing import List
 
 class Wave:
+
+    BASESCORE = 100
+
     def __init__(self):
         self.factors: List[MetaFactor] = []
     
@@ -19,7 +22,8 @@ class Wave:
             weight = meta.weight
             score = factor.evaluate(vec2)
             for reason in score.reasons:
-                reason.point *= weight
+                reason.point *= weight*Wave.BASESCORE
+            score.total *= weight*Wave.BASESCORE
             total_score.append(score)
         return total_score
 
