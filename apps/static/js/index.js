@@ -1,3 +1,5 @@
+import { h, app } from "/js/hyperapp.js"
+
 async function evaluate(){
     const position = await getLocation()
     const results = await getData(position.latitude, position.longitude)
