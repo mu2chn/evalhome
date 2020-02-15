@@ -12,18 +12,17 @@ app({
     }
 })
 
-const evaluateRunner = async function(dispatch, {action}){
-    dispatch((state)=>({...state, results: null}))
-    dispatch((state)=>({...state, loading: true}))
-    const position = await getLocation()
-    const results = await getData(position.latitude, position.longitude)
-    dispatch(action, results)
-    dispatch((state)=>({...state, loading: false}))
-}
-const delayedAction = (state) => [
+const evaluateAction = (state) => [
     state,
     [
-        evaluateRunner,
+        async function(dispatch, {action}){
+            dispatch((state)=>({...state, results: null}))
+            dispatch((state)=>({...state, loading: true}))
+            const position = await getLocation()
+            const results = await getData(position.latitude, position.longitude)
+            dispatch(action, results)
+            dispatch((state)=>({...state, loading: false}))
+        },
         {action: (state, results)=>({...state, results: results})}
     ]
 ]
@@ -40,7 +39,7 @@ const StartView = (state) => {
     return Section(
         h("div", {}, [
             h("p", {}, "京大生の住まいをランク付け！"),
-            h("button", {class: "button is-primary", onClick: [delayedAction], disabled: state.loading ? "yes": null}, "査定する")
+            h("button", {class: "button is-primary", onClick: [evaluateAction], disabled: state.loading ? "yes": null}, "査定する")
         ])
     )
 }
