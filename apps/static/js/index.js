@@ -1,13 +1,7 @@
-async function main(){
-    const body = document.body
-    evaluate()
-}
-
 async function evaluate(){
     const position = await getLocation()
     const results = await getData(position.latitude, position.longitude)
-    
-    document.body.appendChild(craeteResultsFragment(results))
+    document.getElementById("result").append(craeteResultsFragment(results))
 }
 
 function craeteResultsFragment(results){
@@ -15,12 +9,12 @@ function craeteResultsFragment(results){
     const scores = results.scores
     const fragmaent = document.createDocumentFragment()
     const title = document.createElement('div')
-    title.innerHTML = `<h2>Total_Score${total}</h2>`
-    fragmaent.appendChild(title)
+    title.innerHTML = `<h2 class="is-size-3">あなたのトータルスコアは${total}です！</h2>`
 
     for(score of scores){
         fragmaent.appendChild(createScore(score))
     }
+    fragmaent.appendChild(title)
     return fragmaent
 }
 
@@ -28,14 +22,15 @@ function craeteResultsFragment(results){
 function createScore(score){
     const fragmaent = document.createElement('div')
     const title = document.createElement('div')
-    title.innerHTML = `<h3>${score.title}<br/>: score=${score.total}</h3>`
+    title.innerHTML = `<h3 class="is-size-5">${score.title}: ${score.total}点</h3>`
     fragmaent.appendChild(title)
-
+    const ol = document.createElement('ol')
     for(reason of score.reasons){
-        const div = document.createElement('div')
-        div.innerHTML = `<p>${reason.point}pt.　・・・・${reason.detail}</p>`
-        fragmaent.appendChild(div)
+        const div = document.createElement('li')
+        div.innerHTML = `${reason.point}pt.　・・・・${reason.detail}`
+        ol.appendChild(div)
     }
+    fragmaent.appendChild(ol)
     return fragmaent
 }
 
@@ -65,4 +60,10 @@ function getLocation(){
     })
 }
 
-main()
+function main(){
+    const body = document.body
+    const buttton = document.getElementById("evaluate")
+    buttton.addEventListener("click", evaluate, false)
+}
+
+window.addEventListener("load", main)

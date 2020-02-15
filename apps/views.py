@@ -5,8 +5,8 @@ import json
 @app.route('/')
 def index():
     name = "Hello Apartment!"
-    axis = mongo.db.PLACE.find()[0]
-    return render_template('index.html', name=name, axis=axis)
+    # axis = mongo.db.PLACE.find()[0]
+    return render_template('index.html', name=name)
 
 @app.route('/eval')
 def evaluate():
