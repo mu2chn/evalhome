@@ -1,9 +1,36 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<h1>Hello</h1>
-x:{{axis.x}}
-y:{{axis.y}}
-こんにちは。{{ name }}さん。
+<script type="text/javascript" src="{{ url_for('js.static', filename='index.js') }}"></script>
 
+<section class="hero is-warning">
+    <div class="hero-body">
+      <div class="container">
+        <h1 class="title">
+          あなたのお家、査定します
+        </h1>
+        <h2 class="subtitle">
+          査定屋さん
+        </h2>
+      </div>
+    </div>
+</section>
+
+<section class="section">
+    <div class="container">
+        <p>京大生の住まいをランク付け！</p>
+        <button class="button is-primary" id="evaluate">査定する</button>
+    </div>
+  </section>
+
+<div class="section">
+    <div class="container">
+
+        <div id="result">
+            <p>結果がここに表示されます</p>
+            <hr/>
+        </div>
+
+    </div>
+</div>
 {% endblock %}
