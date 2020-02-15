@@ -22,4 +22,3 @@ $ show collections
 ```
 $ python3.6 index.py &
 ```
-
