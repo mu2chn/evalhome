@@ -11,9 +11,9 @@ class Spot:
     BANK = 9 # 銀行
     CARSCHOOL = 10 # 車高
 
-    def __init__(self, lat: float, lng: float, name: str, tag: int, review=0.0):
+    def __init__(self, lat: float, lng: float, name: str, tag: int, rating=0.0):
         self.lat = lat
         self.lng = lng
         self.name = name
         self.tag = tag
-        self.review = review
+        self.rating = rating

@@ -38,7 +38,7 @@ def extractDataForMongo(places, id):
         dic['name'] = place['name']
         dic['lat'] = place['geometry']['location']['lat']
         dic['lng'] = place['geometry']['location']['lng']
-        dic['rate'] = place['rating']
+        dic['rating'] = place['rating']
         data.append(dic)
 
     return data
@@ -49,7 +49,7 @@ def main():
 
     places = getPlacesAroundKu(target['name'])
     data = extractDataForMongo(places, target['id'])
-    
+
     mongo = MongoClient('localhost', 27017)
     db=mongo['evalhome']
 
