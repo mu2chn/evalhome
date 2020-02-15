@@ -1,39 +1,70 @@
 import { h, app } from "/js/hyperapp.js"
 
-async function evaluate(){
+app({
+    node: document.getElementById("app"),
+    view: (state) => Container([
+        StartView(state),
+        ResultView(state)
+    ]),
+    init: {
+        results: null
+    }
+})
+
+const evaluateRunner = async function(dispatch, {action}){
     const position = await getLocation()
     const results = await getData(position.latitude, position.longitude)
-    document.getElementById("result").append(craeteResultsFragment(results))
+    dispatch(action, results)
+}
+const SetEvaluate = function(state, results) {
+    return {results: results}
 }
 
-function craeteResultsFragment(results){
-    const total = results.total_points
-    const scores = results.scores
-    const fragmaent = document.createDocumentFragment()
-    const title = document.createElement('div')
-    title.innerHTML = `<h2 class="is-size-3">あなたのトータルスコアは${total}です！</h2>`
+const delayedAction = (state) => [
+    state,
+    [
+        evaluateRunner,
+        {action: SetEvaluate}
+    ]
+]
 
-    for(score of scores){
-        fragmaent.appendChild(createScore(score))
-    }
-    fragmaent.appendChild(title)
-    return fragmaent
+const Container = (contents) => h("div", {}, contents)
+
+const Section = (content) => {
+    return h("section", {class: "section"}, [
+        h("div", {class: "container"}, [content])
+    ])
 }
 
-// priate
-function createScore(score){
-    const fragmaent = document.createElement('div')
-    const title = document.createElement('div')
-    title.innerHTML = `<h3 class="is-size-5">${score.title}: ${score.total}点</h3>`
-    fragmaent.appendChild(title)
-    const ol = document.createElement('ol')
-    for(reason of score.reasons){
-        const div = document.createElement('li')
-        div.innerHTML = `${reason.point}pt.　・・・・${reason.detail}`
-        ol.appendChild(div)
-    }
-    fragmaent.appendChild(ol)
-    return fragmaent
+const StartView = (state) => {
+    return Section(
+        h("div", {}, [
+            state.task,
+            h("p", {}, "京大生の住まいをランク付け！"),
+            h("button", {class: "button is-primary", onClick: [delayedAction]}, "査定する")
+        ])
+    )
+}
+
+const ResultView = (state) =>{
+    return Section(
+        h("div", {}, [
+            state.results
+            ? h("div", {}, [
+                h("div", {}, state.results.scores.map(s => ScoreView(s))),
+                h("h2", {class: "is-size-3"}, `あなたのトータルスコアは${state.results.total_points.total}です！`)
+            ])
+            : h("p", {}, "結果をここに表示します")
+        ])
+    )
+}
+const ScoreView = (score) => {
+    return h("div", {}, [
+        h("div", {}, [
+            h("h3", {class: "is-size-5"}, `${score.title}: ${score.total}点`)
+        ]),
+        h("ol", {}, score.reasons.map(r => h("li", {}, `${r.point}pt.　・・・・${r.detail}`)))
+    ])
 }
 
 function getData(lat, lng){
@@ -44,7 +75,7 @@ function getData(lat, lng){
         }
       })
         .then(res => {
-            results = res.data
+            const results = res.data
             return results
         })
         .catch(reason => console.log("Cause Err"))
@@ -62,10 +93,6 @@ function getLocation(){
     })
 }
 
-function main(){
-    const body = document.body
-    const buttton = document.getElementById("evaluate")
-    buttton.addEventListener("click", evaluate, false)
-}
+function main(){}
 
 window.addEventListener("load", main)
