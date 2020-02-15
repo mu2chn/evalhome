@@ -23,8 +23,8 @@ class Wave:
             weight = meta.weight
             score = factor.evaluate(vec2)
             for reason in score.reasons:
-                reason.point *= weight*Wave.BASESCORE
-            score.total *= weight*Wave.BASESCORE
+                reason.point = round(reason.point*weight*Wave.BASESCORE)
+            score.total = round(score.total*weight*Wave.BASESCORE)
             total_score.append(score)
             total_points += score.total
 
