@@ -12,5 +12,3 @@ app.config['MONGO_URI'] = f"mongodb://{mongo_host}:{mongo_port}/evalhome"
 mongo = PyMongo(app)
 
 import apps.views
-
-import apps.test.test
