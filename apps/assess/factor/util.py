@@ -11,7 +11,6 @@ class Score:
         self.reasons: List[Reason] = []
         self.total = 0
 
-    # sum of the score should under 1
     def addReason(self, reason: Reason):
         self.total += reason.point
         self.reasons.append(reason)
