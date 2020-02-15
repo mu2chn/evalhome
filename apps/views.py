@@ -1,5 +1,5 @@
 from flask import request, redirect, url_for, render_template, flash
-from apps import app, mongo
+from apps import app, mongo, wave
 import json
 
 @app.route('/')
@@ -10,11 +10,10 @@ def index():
 
 @app.route('/eval')
 def evaluate():
-    lng = request.args.get('lng')
-    lat = request.args.get('lat')
-    score = sampleEvaluate()
-    return json.dumps(score, default=default_method)
-
+    lng = float(request.args.get('lng'))
+    lat = float(request.args.get('lat'))
+    scores = wave.evaluate(lat, lng)
+    return json.dumps(scores, default=default_method)
 
 
 def default_method(item):
@@ -22,13 +21,3 @@ def default_method(item):
         return item.__dict__
     else:
         raise TypeError
-
-from apps.assess import Wave, PolynomialSpotFactor
-def sampleEvaluate():
-    superFactor = PolynomialSpotFactor("スーパー")
-    superFactor.appendData("イズミヤ", 35.041133, 135.781177, 3.0)
-    superFactor.appendData("カナート", 35.041141, 135.778983)
-    wave = Wave()
-    wave.appendFactor(superFactor, 1.2)
-    scores = wave.evaluate(35.041058, 135.782566)
-    return scores
