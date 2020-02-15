@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 
 # Create flask instance
 app = Flask(__name__)
-app.config.from_object('apps.config')
+app.config.from_object('apps.config.Develop')
 
 # Database options (for MongoDB)
 mongo_port = 27017
