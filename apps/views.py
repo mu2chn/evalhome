@@ -10,6 +10,8 @@ def index():
 
 @app.route('/eval')
 def evaluate():
+    lng = request.args.get('lng')
+    lat = request.args.get('lat')
     score = sampleEvaluate()
     return json.dumps(score, default=default_method)
 
