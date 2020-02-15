@@ -7,24 +7,23 @@ app({
         ResultView(state)
     ]),
     init: {
-        results: null
+        results: null,
+        loading: false
     }
 })
 
 const evaluateRunner = async function(dispatch, {action}){
+    dispatch((state)=>({...state, loading: true}))
     const position = await getLocation()
     const results = await getData(position.latitude, position.longitude)
     dispatch(action, results)
+    dispatch((state)=>({...state, loading: false}))
 }
-const SetEvaluate = function(state, results) {
-    return {results: results}
-}
-
 const delayedAction = (state) => [
     state,
     [
         evaluateRunner,
-        {action: SetEvaluate}
+        {action: (state, results)=>({...state, results: results})}
     ]
 ]
 
@@ -39,7 +38,6 @@ const Section = (content) => {
 const StartView = (state) => {
     return Section(
         h("div", {}, [
-            state.task,
             h("p", {}, "京大生の住まいをランク付け！"),
             h("button", {class: "button is-primary", onClick: [delayedAction]}, "査定する")
         ])
@@ -54,7 +52,9 @@ const ResultView = (state) =>{
                 h("div", {}, state.results.scores.map(s => ScoreView(s))),
                 h("h2", {class: "is-size-3"}, `あなたのトータルスコアは${state.results.total_points.total}です！`)
             ])
-            : h("p", {}, "結果をここに表示します")
+            : state.loading
+                ? h("p", {}, "。。。取得中です")
+                : h("p", {}, "結果をここに表示します")
         ])
     )
 }
