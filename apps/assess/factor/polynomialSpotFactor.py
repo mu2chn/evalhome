@@ -24,11 +24,11 @@ class PolynomialSpotFactor(Factor):
             deltaX = abs(spot.vec2.x-vec2.x)
             deltaY = abs(spot.vec2.y-vec2.y)
             length = (deltaX + deltaY)/0.000011746
-            if 500 >= length > 0:
-                point = 500 - length
+            if 1000 >= length > 0:
+                point = 1000 - length
             else:
                 point = 0
-            point /= 500
+            point /= 1000
             reason = Reason(spot.name, point*spot.pri)
             score.addReason(reason)
 

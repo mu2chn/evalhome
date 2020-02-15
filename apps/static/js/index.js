@@ -54,7 +54,7 @@ function getLocation(){
             resolve(positon.coords)
         }), (err) => {
             // reject(err)
-            resolve({latitude: 35.041058, longitude: 135.782566})
+            resolve({latitude: 35.024731, longitude: 135.797286})
             console.log("Cannot get location info");
         });
     })
