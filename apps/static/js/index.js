@@ -53,7 +53,7 @@ const ResultView = (state) =>{
                     ]),
                     h("h2", {class: "column is-size-3"}, `あなたのトータルスコアは${state.results.total_points}です！`)
                 ])
-                : h("div", {style: {"margin": "15vh auto"}, class: ["has-text-centered"]}, [
+                : h("div", {style: {"margin": "5vh auto"}, class: ["has-text-centered"]}, [
                     state.loading
                         ? h("p", {class: ["has-text-grey-lighter", "is-size-3"]}, "。。。けいさんちゅう")
                         : h("p", {class: ["has-text-grey-lighter", "is-size-3"]}, "結果をここに表示します")
