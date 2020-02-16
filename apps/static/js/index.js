@@ -48,22 +48,22 @@ const ResultView = (state) =>{
     return Section(
         h("div", {}, [
             state.results
-            ? h("div", {}, [
-                h("div", {}, state.results.scores.map(s => ScoreView(s))),
-                h("h2", {class: "is-size-3"}, `あなたのトータルスコアは${state.results.total_points}です！`)
-            ])
-            : state.loading
-                ? h("p", {}, "。。。取得中です")
-                : h("p", {}, "結果をここに表示します")
+                ? h("div", {class: "columns is-multiline"}, [
+                    h("div", {class: "column is-full"}, state.results.scores.map(s => ScoreView(s))),
+                    h("h2", {class: "column is-size-3"}, `あなたのトータルスコアは${state.results.total_points}です！`)
+                ])
+                : state.loading
+                    ? h("p", {}, "。。。取得中です")
+                    : h("p", {}, "結果をここに表示します")
         ])
     )
 }
 const ScoreView = (score) => {
-    return h("div", {}, [
-        h("div", {}, [
+    return h("div", {class: "columns box is-vcentered"}, [
+        h("div", {class: "column is-half"}, [
             h("h3", {class: "is-size-5"}, `${score.title}: ${score.total}点`)
         ]),
-        h("ol", {}, score.reasons.map(r => h("li", {}, `${r.point}pt.　・・・・${r.detail}`)))
+        h("div", {class: "column is-half"}, score.reasons.map(r => h("p", {}, `${r.point}pt.　・・・・${r.detail}`)))
     ])
 }
 
