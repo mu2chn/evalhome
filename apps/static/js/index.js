@@ -13,17 +13,14 @@ app({
 })
 
 const evaluateAction = (state) => [
-    state,
+    {...state, results: null, loading: true},
     [
         async function(dispatch, {action}){
-            dispatch((state)=>({...state, results: null}))
-            dispatch((state)=>({...state, loading: true}))
             const position = await getLocation()
             const results = await getData(position.latitude, position.longitude)
             dispatch(action, results)
-            dispatch((state)=>({...state, loading: false}))
         },
-        {action: (state, results)=>({...state, results: results})}
+        {action: (state, results)=>({...state, results: results, loading: false})}
     ]
 ]
 
