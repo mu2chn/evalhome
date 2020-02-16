@@ -37,9 +37,11 @@ const Section = (content) => {
 
 const StartView = (state) => {
     return Section(
-        h("div", {}, [
-            h("p", {}, "京大生の住まいをランク付け！"),
-            h("button", {class: "button is-primary", onClick: [evaluateAction], disabled: state.loading ? "yes": null}, "査定する")
+        h("div", {class: "has-text-centered"}, [
+            h("div", {class: ["columns is-centered"]}, [
+                h("div", {class: ["column is-half"]}, "自身の下宿が他人から見てどれくらい立地が良いのか調べることができます。以下のボタンを押して検索してみましょう。"),
+            ]),
+            h("button", {class: "button is-info", onClick: [evaluateAction], disabled: state.loading ? "yes": null}, "査定する")
         ])
     )
 }
@@ -52,9 +54,11 @@ const ResultView = (state) =>{
                     h("div", {class: "column is-full"}, state.results.scores.map(s => ScoreView(s))),
                     h("h2", {class: "column is-size-3"}, `あなたのトータルスコアは${state.results.total_points}です！`)
                 ])
-                : state.loading
-                    ? h("p", {}, "。。。取得中です")
-                    : h("p", {}, "結果をここに表示します")
+                : h("div", {style: {"margin": "15vh auto"}, class: ["has-text-centered"]}, [
+                    state.loading
+                        ? h("p", {class: ["has-text-grey-lighter", "is-size-3"]}, "。。。けいさんちゅう")
+                        : h("p", {class: ["has-text-grey-lighter", "is-size-3"]}, "結果をここに表示します")
+                ])
         ])
     )
 }
