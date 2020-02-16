@@ -90,13 +90,16 @@ function getData(lat, lng){
 
 function getLocation(){
     return new Promise((resolve, reject)=> {
-        navigator.geolocation.getCurrentPosition(((positon) => {
-            resolve(positon.coords)
-        }), (err) => {
-            // reject(err)
-            resolve({latitude: 35.024731, longitude: 135.797286})
-            console.log("Cannot get location info");
-        });
+        // HTTPSでしか動作しない
+        navigator.geolocation.getCurrentPosition(
+            ((positon) => {
+                resolve(positon.coords)
+            }),
+            ((err) => {
+                resolve({latitude: 35.024731, longitude: 135.797286})
+                console.log("Cannot get location info")
+            })
+        );
     })
 }
 
