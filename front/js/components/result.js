@@ -6,6 +6,7 @@ export default (state) =>{
         h("div", {}, [
             state.results
                 ? h("div", {class: "columns is-multiline"}, [
+                    h("h3", {class: "column is-size-3"}, `上位${state.aggregate.upper}%にいます`),
                     h("div", {class: "column is-full"}, [
                         h("div", {class: "colums is-multiline"}, state.results.scores.map(s => ScoreView(s))),
                     ]),

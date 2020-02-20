@@ -7,6 +7,6 @@ def getData(tag, factor):
         factor.appendData(spot["name"], spot["lat"], spot["lng"], float(spot["rating"])/3)
 
 superFactor = PolynomialSpotFactor("スーパー")
-getData(1, superFactor)
-wave.appendFactor(superFactor, 1.2)
+getData(1, superFactor) 
+wave.appendFactor(superFactor, tag=1, weight=1.2)
 

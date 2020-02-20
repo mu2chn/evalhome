@@ -8,8 +8,8 @@ class Wave:
     def __init__(self):
         self.factors: List[MetaFactor] = []
     
-    def appendFactor(self, factor: Factor, weight=1):
-        meta = MetaFactor(factor)
+    def appendFactor(self, factor: Factor, tag: int, weight=1):
+        meta = MetaFactor(factor, tag)
         meta.weight = weight
         self.factors.append(meta)
         
@@ -25,6 +25,7 @@ class Wave:
             for reason in score.reasons:
                 reason.point = round(reason.point*weight*Wave.BASESCORE)
             score.total = round(score.total*weight*Wave.BASESCORE)
+            score.tag = meta.tag
             total_score.append(score)
             total_points += score.total
 
@@ -34,6 +35,7 @@ class Wave:
         return results
 
 class MetaFactor:
-    def __init__(self, factor: Factor):
+    def __init__(self, factor: Factor, tag: int):
         self.factor = factor
         self.weight = 1
+        self.tag = tag

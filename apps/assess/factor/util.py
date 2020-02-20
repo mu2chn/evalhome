@@ -10,6 +10,7 @@ class Score:
         self.title = title
         self.reasons: List[Reason] = []
         self.total = 0
+        self.tag = None
 
     def addReason(self, reason: Reason):
         self.total += reason.point
