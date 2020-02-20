@@ -26,11 +26,6 @@ def default_method(item):
     else:
         raise TypeError
 
-# def countUpper(score):
-#     count = mongo.db.USER.find().count()
-#     upper = mongo.db.USER.find({"point": {"$gte": score['total_points']}}).count()
-#     print(count, upper)
-#     return int(100*float(upper)/float(count))
 
 def getAggregate(score):
     aggregate = {}
