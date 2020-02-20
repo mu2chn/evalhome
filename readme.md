@@ -28,6 +28,7 @@ $ docker run -d -p 27017:27017 --name evalhome mongo
 ```
 $ mogo evalhome
 $ db.createCollection('PLACE')
+$ db.createCollection('USER')
 $ show collections
 ```
 
