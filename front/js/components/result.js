@@ -8,7 +8,7 @@ export default (state) =>{
                 ? h("div", {class: "columns is-multiline"}, [
                     h("h3", {class: "column is-size-3"}, `上位${state.aggregate.upper}%にいます`),
                     h("div", {class: "column is-full"}, [
-                        h("div", {class: "colums is-multiline"}, state.results.scores.map(s => ScoreView(s))),
+                        h("div", {class: "colums is-multiline is-mobile"}, state.results.scores.map(s => ScoreView(s))),
                     ]),
                     h("h2", {class: "column is-size-3"}, `あなたのトータルスコアは${state.results.total_points}です！`)
                 ])
@@ -23,8 +23,8 @@ export default (state) =>{
 
 const ScoreView = (score) => {
     return ( 
-        h("div", {class: ["column is-half"]}, [
-            h("div", {class: "columns box is-vcentered is-multiline"}, [
+        h("div", {class: ["column", "is-full"]}, [
+            h("div", {class: "columns box is-multiline", style: {"margin-bottom": "1px"}}, [
                 h("div", {class: "column is-full"}, [
                     h("h3", {class: "is-size-5"}, `${score.title}: ${score.total}点`)
                 ]),
