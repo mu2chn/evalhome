@@ -19,6 +19,8 @@ const evaluateAction = (state) => [
         async function(dispatch, {action}){
             const position = await getLocation()
             const results = await getData(position.latitude, position.longitude)
+            console.log("########");
+            
             dispatch(action, results)
         },
         {action: (state, results)=>({...state, results: results, loading: false})}
