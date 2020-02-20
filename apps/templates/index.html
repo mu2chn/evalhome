@@ -1,9 +1,9 @@
 {% extends "layout.html" %}
 
 {% block content %}
-<script type="text/javascript" src="{{ url_for('js.static', filename='index.js') }}"></script>
+<script type="module" src="{{ url_for('static', filename='bundle.js') }}"></script>
 
-<section class="hero is-warning">
+<section class="hero is-info is-medium is-bold">
     <div class="hero-body">
       <div class="container">
         <h1 class="title">
@@ -16,21 +16,6 @@
     </div>
 </section>
 
-<section class="section">
-    <div class="container">
-        <p>京大生の住まいをランク付け！</p>
-        <button class="button is-primary" id="evaluate">査定する</button>
-    </div>
-  </section>
+<div id="app"></div>
 
-<div class="section">
-    <div class="container">
-
-        <div id="result">
-            <p>結果がここに表示されます</p>
-            <hr/>
-        </div>
-
-    </div>
-</div>
 {% endblock %}
