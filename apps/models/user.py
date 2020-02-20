@@ -4,7 +4,7 @@ class User:
         self.lat = lat
         self.lng = lng
         self.date = date
-        self.cookie = cokie
+        self.cookie = cookie
         self.point = None
 
     def setPoint(self, point: int):
