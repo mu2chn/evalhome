@@ -13,7 +13,8 @@ export default function(){
         ]),
         init: {
             results: null,
-            loading: false
+            loading: false,
+            aggregate: null
         }
     })
 }

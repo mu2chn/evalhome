@@ -18,12 +18,10 @@ const evaluateAction = (state) => [
     [
         async function(dispatch, {action}){
             const position = await getLocation()
-            const results = await getData(position.latitude, position.longitude)
-            console.log("########");
-            
+            const results = await getData(position.latitude, position.longitude)            
             dispatch(action, results)
         },
-        {action: (state, results)=>({...state, results: results, loading: false})}
+        {action: (state, results)=>({...state, results: results.scores, loading: false, aggregate: results.aggregate})}
     ]
 ]
 
@@ -49,7 +47,7 @@ function getLocation(){
                 resolve(positon.coords)
             }),
             ((err) => {
-                resolve({latitude: 35.024731, longitude: 135.797286})
+                resolve({latitude: 35.041027, longitude: 135.782641})
                 console.log("Cannot get location info")
             })
         );
