@@ -5,6 +5,7 @@ class User:
         self.lng = lng
         self.date = date
         self.cookie = cookie
+        self.point = null
 
     def setPoint(self, point: int):
         self.point = point
