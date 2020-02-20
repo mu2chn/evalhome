@@ -1,2 +1,6 @@
 *.pyc
 .vscode/*
+/node_modules/*
+apps/static/*
+
+package-lock.json
