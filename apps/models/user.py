@@ -4,8 +4,8 @@ class User:
         self.lat = lat
         self.lng = lng
         self.date = date
-        self.cookie = cookie
-        self.point = null
+        self.cookie = cokie
+        self.point = None
 
     def setPoint(self, point: int):
         self.point = point
