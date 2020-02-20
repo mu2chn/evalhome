@@ -4,6 +4,19 @@ $ python3.6 -m pip install -r requirements.txt
 ```
 pipを用いてパッケージをインストールするなら`requirements.txt`への追記は絶対！
 
+## front
+```
+$ npm install 
+```
+
+```
+$ npm run build
+```
+or
+```
+$ npm run dev
+```
+
 ## setup mongoDB
 Dockerからパクってくるなら
 ```
