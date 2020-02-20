@@ -6,6 +6,7 @@ export default (state) =>{
         h("div", {}, [
             state.results
                 ? h("div", {class: "columns is-multiline"}, [
+                    Navi(),
                     h("h3", {class: "column is-size-3"}, `上位${state.aggregate.upper}%にいます`),
                     h("div", {class: "column is-full"}, [
                         h("div", {class: "colums is-multiline is-mobile"}, state.results.scores.map(s => ScoreView(s))),
@@ -22,7 +23,7 @@ export default (state) =>{
 }
 
 const ScoreView = (score) => {
-    return ( 
+    return (
         h("div", {class: ["column", "is-full"]}, [
             h("div", {class: "columns box is-multiline", style: {"margin-bottom": "1px"}}, [
                 h("div", {class: "column is-full"}, [
@@ -32,4 +33,22 @@ const ScoreView = (score) => {
             ])
         ])
     )
+}
+
+const Navi = () => {
+    return (
+      h("div", {class: "tabs"}, [
+        h("ul", {}, [
+          ['結果', '詳細', 'グラフ'].map(n => NaviItem(n))
+        ])
+      ])
+    )
+}
+
+const NaviItem = (name) => {
+  return (
+    h("li", {}, [
+      h("a", {}, name)
+    ])
+  )
 }
