@@ -30,7 +30,7 @@ class PolynomialSpotFactor(Factor):
                 point = 0
             point /= 1000
             reason = Reason(spot.name, point*spot.pri)
-            if point>0.0001:
+            if point>0.001:
                 score.addReason(reason)
         score.reasons.sort(reverse=True, key=lambda r : r.point)
 
