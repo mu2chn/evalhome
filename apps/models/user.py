@@ -6,7 +6,7 @@ class User:
     def __init__(self, lat: float, lng: float, cookie=None):
         self.lat = lat
         self.lng = lng
-        self.date = datetime.now().strftime('%s')
+        self.date = int(datetime.now().strftime('%s'))
         self.cookie = cookie
         self.point = None
         self.uid = str(uuid.uuid4())

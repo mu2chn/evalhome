@@ -1,13 +1,19 @@
-from flask import request, redirect, url_for, render_template, flash
+from flask import request, render_template, make_response
 from apps import app, mongo, wave
 from apps.models import User
-import json
+import json, uuid
+from datetime import datetime
 
 @app.route('/')
 def index():
     name = "Hello Apartment!"
-    # axis = mongo.db.PLACE.find()[0]
-    return render_template('index.html', name=name)
+    response = make_response(render_template('index.html', name=name))
+    cookie = request.cookies.get('uid', None)
+    if cookie == None:
+        new_cookie = str(uuid.uuid4())
+        response.set_cookie('uid', value=new_cookie)
+    return response
+
 
 @app.route('/eval')
 def evaluate():
@@ -17,6 +23,15 @@ def evaluate():
     scores = wave.evaluate(user.lat, user.lng)
     user.setPoint(scores)
     aggregate = getAggregate(scores)
+    mongo.db.USER.insert(
+        {
+            "cookie": request.cookies.get('uid', None),
+            "lng": lng,
+            "lat": lat,
+            "point": scores['total_points'],
+            "date": int(datetime.now().strftime('%s'))
+        }
+    )
     return json.dumps({"scores":scores, "aggregate": aggregate}, default=default_method)
 
 
@@ -48,7 +63,7 @@ def getAggregate(score):
     aggregate['upper'] = int(100*float(upper)/float(count))
 
     chart = mongo.db.USER.aggregate([
-        { 
+        {
             "$project": {
                 "range": {
                     "$concat": [
@@ -71,7 +86,7 @@ def getAggregate(score):
                 "range": {"$first": "$range"},
                 "count": { 
                     "$sum": 1
-                } 
+                }
             }
         },
         {
