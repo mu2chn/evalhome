@@ -6,7 +6,8 @@ export default (state) =>{
         h("div", {}, [
             state.results
                 ? h("div", {class: "columns is-multiline"}, [
-                    Navi(),
+                    Navi(state),
+                    Content(state),
                     h("h3", {class: "column is-size-3"}, `上位${state.aggregate.upper}%にいます`),
                     h("div", {class: "column is-full"}, [
                         h("div", {class: "colums is-multiline is-mobile"}, state.results.scores.map(s => ScoreView(s))),
@@ -35,20 +36,35 @@ const ScoreView = (score) => {
     )
 }
 
-const Navi = () => {
+const Content = (state) => {
+  return (
+    h("div", {class: "content"}, [
+      h("div", {class: state.data1 ? "active" : ""}, "ほげほげ1"),
+      h("div", {class: state.data2 ? "active" : ""}, "ほげほげ2"),
+      h("div", {class: state.data3 ? "active" : ""}, "ほげほげ3")
+    ])
+  )
+}
+
+const Navi = (state) => {
     return (
       h("div", {class: "tabs"}, [
         h("ul", {}, [
-          ['結果', '詳細', 'グラフ'].map(n => NaviItem(n))
+            h("li", {class: state.data1 ? "active" : ""}, [
+              h("a", {onClick: switchToData1}, "data1")
+            ]),
+            h("li", {class: state.data2 ? "active" : ""}, [
+              h("a", {onClick: switchToData2}, "data2")
+            ]),
+            h("li", {class: state.data3 ? "active" : ""}, [
+              h("a", {onClick: switchToData3}, "data3")
+            ])
         ])
       ])
     )
 }
 
-const NaviItem = (name) => {
-  return (
-    h("li", {}, [
-      h("a", {}, name)
-    ])
-  )
-}
+
+const switchToData1 = (state) => ({...state, data1: true, data2: false, data3: false})
+const switchToData2 = (state) => ({...state, data1: false, data2: true, data3: false})
+const switchToData3 = (state) => ({...state, data1: false, data2: false, data3: true})
