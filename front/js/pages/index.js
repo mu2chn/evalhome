@@ -14,7 +14,8 @@ export default function(){
         init: {
             results: null,
             loading: false,
-            aggregate: null
+            aggregate: null,
+            activeTab: 0
         }
     })
 }

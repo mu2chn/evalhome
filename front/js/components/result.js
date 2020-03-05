@@ -38,33 +38,28 @@ const ScoreView = (score) => {
 
 const Content = (state) => {
   return (
-    h("div", {class: "content"}, [
-      h("div", {class: state.data1 ? "active" : ""}, "ほげほげ1"),
-      h("div", {class: state.data2 ? "active" : ""}, "ほげほげ2"),
-      h("div", {class: state.data3 ? "active" : ""}, "ほげほげ3")
-    ])
+    h("div", {class: "content"},
+      TAB.map((name, i) => {
+        return h("div", {class: state.activeTab === i ? "active" : ""}, name)
+      })
+    )
   )
 }
+
+const TAB = ['all', 'detail', 'chart'];
 
 const Navi = (state) => {
     return (
       h("div", {class: "tabs"}, [
-        h("ul", {}, [
-            h("li", {class: state.data1 ? "active" : ""}, [
-              h("a", {onClick: switchToData1}, "data1")
-            ]),
-            h("li", {class: state.data2 ? "active" : ""}, [
-              h("a", {onClick: switchToData2}, "data2")
-            ]),
-            h("li", {class: state.data3 ? "active" : ""}, [
-              h("a", {onClick: switchToData3}, "data3")
+        h("ul", {},
+          TAB.map((name, i) => {
+            return h("li", {class: state.activeTab === i ? "active" : ""}, [
+              h("a", {onClick: [switchTab, i]}, name)
             ])
-        ])
+          })
+        )
       ])
     )
 }
 
-
-const switchToData1 = (state) => ({...state, data1: true, data2: false, data3: false})
-const switchToData2 = (state) => ({...state, data1: false, data2: true, data3: false})
-const switchToData3 = (state) => ({...state, data1: false, data2: false, data3: true})
+const switchTab = (state, number) => ({...state, activeTab: number})
