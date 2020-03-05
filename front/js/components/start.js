@@ -18,7 +18,7 @@ const evaluateAction = (state) => [
     [
         async function(dispatch, {action}){
             const position = await getLocation()
-            const results = await getData(position.latitude, position.longitude)            
+            const results = await getData(position.latitude, position.longitude)
             dispatch(action, results)
         },
         {action: (state, results)=>({...state, results: results.scores, loading: false, aggregate: results.aggregate})}
@@ -44,7 +44,8 @@ function getLocation(){
         // HTTPSでしか動作しない
         navigator.geolocation.getCurrentPosition(
             ((positon) => {
-                resolve(positon.coords)
+                // resolve(positon.coords)
+                resolve({latitude: 35.041029, longitude: 135.782641})
             }),
             ((err) => {
                 resolve({latitude: 35.041029, longitude: 135.782641})
