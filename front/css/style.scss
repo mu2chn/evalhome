@@ -3,3 +3,11 @@
 h1 {
     color: blue;
 }
+
+.content div {
+  display: none;
+}
+
+.content .active {
+  display: block;
+}
